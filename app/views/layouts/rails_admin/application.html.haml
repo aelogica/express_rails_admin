@@ -36,5 +36,5 @@
       .small-9.push-3.columns
         .content{:'data-pjax-container' => true}= render template: 'layouts/rails_admin/pjax'
       .small-3.pull-9.columns
-        %ul.nav.nav-list= main_navigation
-        %ul.nav.nav-list= static_navigation
+        %ul.side-nav= main_navigation
+        %ul.side-nav= static_navigation
