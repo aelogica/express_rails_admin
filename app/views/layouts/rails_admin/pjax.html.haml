@@ -11,7 +11,7 @@
     %a.close{href: '#', :'data-dismiss' => "alert"} &times;
     = value
 = breadcrumb
-%ul.tabs{data: {tab: ''}}
+%ul.tabs
   = menu_for((@abstract_model ? (@object.try(:persisted?) ? :member : :collection) : :root), @abstract_model, @object)
   = content_for :contextual_tabs
 = yield
