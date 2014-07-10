@@ -99,7 +99,7 @@
       .input-group
         %input.form-control.input-small{name: "query", type: "search", value: query, placeholder: t("admin.misc.filter")}
         %span.input-group-btn
-          %button.button.btn-primary{type: "submit", :'data-disable-with' => "<i class='icon-white icon-refresh'></i> ".html_safe + t("admin.misc.refresh")}
+          %button.button.small.radius{type: "submit", :'data-disable-with' => "<i class='icon-white icon-refresh'></i> ".html_safe + t("admin.misc.refresh")}
             %i.icon-white.icon-refresh
             = t("admin.misc.refresh")
       - if export_action
