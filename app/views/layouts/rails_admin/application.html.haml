@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 !!!
 %html
   %head
@@ -38,3 +39,23 @@
       .small-3.pull-9.columns
         %ul.side-nav= main_navigation
         %ul.side-nav= static_navigation
+- content_for :content do
+  %main.main-container{role: "main"}
+    = render 'shared/rails_admin/sidebar'
+    .content-body
+      = render 'shared/express_admin/messages'
+      - if content_for?(:page_header)
+        .page-header
+          .row
+            .small-12.columns
+              = yield :page_header
+      .row
+        .small-12.columns
+          = render template: 'layouts/rails_admin/pjax'
+
+- content_for :page_javascript do
+  = javascript_include_tag 'rails_admin/rails_admin'
+  :javascript
+    RailsAdmin.I18n.init(JSON.parse("#{j I18n.t("admin.js").to_json}"))
+
+= render template: 'layouts/express_admin/admin'
