@@ -148,15 +148,15 @@ module RailsAdmin
     def bulk_menu(abstract_model = @abstract_model)
       actions = actions(:bulkable, abstract_model)
       return '' if actions.empty?
-      content_tag :li, class: 'dropdown', style: 'float:right' do
-        content_tag(:a, class: 'dropdown-toggle', :'data-toggle' => 'dropdown', href: '#') { t('admin.misc.bulk_menu_title').html_safe + '<b class="caret"></b>'.html_safe } +
-          content_tag(:ul, class: 'dropdown-menu', style: 'left:auto; right:0;') do
-            actions.collect do |action|
-              content_tag :li do
-                link_to wording_for(:bulk_link, action), '#', onclick: "jQuery('#bulk_action').val('#{action.action_name}'); jQuery('#bulk_form').submit(); return false;"
-              end
-            end.join.html_safe
-          end
+      content_tag :li, class: 'inline-list right' do
+        content_tag(:a, :'data-dropdown' => 'selected-items', href: '#', class: 'button small radius gray') { t('admin.misc.bulk_menu_title').html_safe + '<b class="caret"></b>'.html_safe } +
+        content_tag(:ul, id: 'selected-items', class: 'f-dropdown', :'data-dropdown-content' => true) do
+          actions.collect do |action|
+            content_tag :li do
+              link_to wording_for(:bulk_link, action), '#', onclick: "jQuery('#bulk_action').val('#{action.action_name}'); jQuery('#bulk_form').submit(); return false;"
+            end
+          end.join.html_safe
+        end
       end.html_safe
     end
   end
