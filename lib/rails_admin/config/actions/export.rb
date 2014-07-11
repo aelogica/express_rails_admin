@@ -30,7 +30,7 @@ module RailsAdmin
         end
 
         register_instance_option :link_icon do
-          'fa-share-square-o'
+          'ion-android-download'
         end
       end
     end

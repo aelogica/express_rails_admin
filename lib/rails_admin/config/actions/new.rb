@@ -54,7 +54,7 @@ module RailsAdmin
         end
 
         register_instance_option :link_icon do
-          'fa-plus'
+          'ion-plus'
         end
       end
     end
