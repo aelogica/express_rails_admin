@@ -6,7 +6,7 @@
   %input{name: "send_data", type: "hidden", value: "true"}/
   %fieldset{id: 'fields_to_export'}
     %legend
-      %i.icon-chevron-down
+      %i.icon.ion-chevron-down
       = t('admin.export.select')
     .control-group
       .controls
@@ -45,7 +45,7 @@
 
   %fieldset
     %legend
-      %i.icon-chevron-down
+      %i.icon.ion-chevron-down
       = t('admin.export.options_for', name: 'csv')
     .control-group
       - guessed_encoding = @abstract_model.encoding
