@@ -7,6 +7,9 @@ require 'rails'
 require 'rails_admin'
 require 'remotipart'
 require 'safe_yaml'
+require 'foundation-rails'
+require 'express_admin'
+>>>>>>> 5f85ef3... Fix express_admin integration
 
 SafeYAML::OPTIONS[:suppress_warnings] = true
 SafeYAML::OPTIONS[:default_mode] = :unsafe
@@ -14,8 +17,7 @@ SafeYAML::OPTIONS[:default_mode] = :unsafe
 module RailsAdmin
   class Engine < Rails::Engine
     isolate_namespace RailsAdmin
-
-    config.action_dispatch.rescue_responses.merge!('RailsAdmin::ActionNotAllowed' => :forbidden)
+    include ::ExpressAdmin::Menu::Loader
 
     initializer 'RailsAdmin precompile hook', group: :all do |app|
       app.config.assets.precompile += %w(
