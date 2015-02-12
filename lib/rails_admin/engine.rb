@@ -9,7 +9,6 @@ require 'remotipart'
 require 'safe_yaml'
 require 'foundation-rails'
 require 'express_admin'
->>>>>>> 5f85ef3... Fix express_admin integration
 
 SafeYAML::OPTIONS[:suppress_warnings] = true
 SafeYAML::OPTIONS[:default_mode] = :unsafe
