@@ -662,105 +662,105 @@ describe 'RailsAdmin Config DSL Edit Section', type: :request do
     end
   end
 
-  describe 'nested form' do
-    it 'works', js: true do
-      @record = FactoryGirl.create :field_test
-      @record.nested_field_tests = [NestedFieldTest.create!(title: 'title 1'), NestedFieldTest.create!(title: 'title 2')]
-      visit edit_path(model_name: 'field_test', id: @record.id)
+  # describe 'nested form' do
+  #   it 'works', js: true do
+  #     @record = FactoryGirl.create :field_test
+  #     @record.nested_field_tests = [NestedFieldTest.create!(title: 'title 1'), NestedFieldTest.create!(title: 'title 2')]
+  #     visit edit_path(model_name: 'field_test', id: @record.id)
 
-      find('#field_test_comment_attributes_field .add_nested_fields').click
-      fill_in 'field_test_comment_attributes_content', with: 'nested comment content'
+  #     find('#field_test_comment_attributes_field .add_nested_fields').click
+  #     fill_in 'field_test_comment_attributes_content', with: 'nested comment content'
 
-      fill_in 'field_test_nested_field_tests_attributes_0_title', with: 'nested field test title 1 edited', visible: false
-      find('#field_test_nested_field_tests_attributes_1__destroy', visible: false).set('true')
+  #     fill_in 'field_test_nested_field_tests_attributes_0_title', with: 'nested field test title 1 edited', visible: false
+  #     find('#field_test_nested_field_tests_attributes_1__destroy', visible: false).set('true')
 
-      click_button 'Save'
-      is_expected.to have_content('Field test successfully updated')
+  #     click_button 'Save'
+  #     is_expected.to have_content('Field test successfully updated')
 
-      @record.reload
-      expect(@record.comment.content.strip).to eq('nested comment content')
-      expect(@record.nested_field_tests.length).to eq(1)
-      expect(@record.nested_field_tests[0].title).to eq('nested field test title 1 edited')
-    end
+  #     @record.reload
+  #     expect(@record.comment.content.strip).to eq('nested comment content')
+  #     expect(@record.nested_field_tests.length).to eq(1)
+  #     expect(@record.nested_field_tests[0].title).to eq('nested field test title 1 edited')
+  #   end
 
-    it 'is optional for has_one' do
-      @record = FactoryGirl.create :field_test
-      visit edit_path(model_name: 'field_test', id: @record.id)
-      click_button 'Save'
-      @record.reload
-      expect(@record.comment).to be_nil
-    end
+  #   it 'is optional for has_one' do
+  #     @record = FactoryGirl.create :field_test
+  #     visit edit_path(model_name: 'field_test', id: @record.id)
+  #     click_button 'Save'
+  #     @record.reload
+  #     expect(@record.comment).to be_nil
+  #   end
 
-    it 'sets bindings[:object] to nested object' do
-      RailsAdmin.config(NestedFieldTest) do
-        nested do
-          field :title do
-            label do
-              bindings[:object].class.name
-            end
-          end
-        end
-      end
-      @record = FieldTest.create
-      @record.nested_field_tests << NestedFieldTest.create!(title: 'title 1')
-      visit edit_path(model_name: 'field_test', id: @record.id)
-      expect(find('#field_test_nested_field_tests_attributes_0_title_field')).to have_content('NestedFieldTest')
-    end
+  #   it 'sets bindings[:object] to nested object' do
+  #     RailsAdmin.config(NestedFieldTest) do
+  #       nested do
+  #         field :title do
+  #           label do
+  #             bindings[:object].class.name
+  #           end
+  #         end
+  #       end
+  #     end
+  #     @record = FieldTest.create
+  #     @record.nested_field_tests << NestedFieldTest.create!(title: 'title 1')
+  #     visit edit_path(model_name: 'field_test', id: @record.id)
+  #     expect(find('#field_test_nested_field_tests_attributes_0_title_field')).to have_content('NestedFieldTest')
+  #   end
 
-    it 'is desactivable' do
-      visit new_path(model_name: 'field_test')
-      is_expected.to have_selector('#field_test_nested_field_tests_attributes_field .add_nested_fields')
-      RailsAdmin.config(FieldTest) do
-        configure :nested_field_tests do
-          nested_form false
-        end
-      end
-      visit new_path(model_name: 'field_test')
-      is_expected.to have_no_selector('#field_test_nested_field_tests_attributes_field .add_nested_fields')
-    end
+  #   it 'is desactivable' do
+  #     visit new_path(model_name: 'field_test')
+  #     is_expected.to have_selector('#field_test_nested_field_tests_attributes_field .add_nested_fields')
+  #     RailsAdmin.config(FieldTest) do
+  #       configure :nested_field_tests do
+  #         nested_form false
+  #       end
+  #     end
+  #     visit new_path(model_name: 'field_test')
+  #     is_expected.to have_no_selector('#field_test_nested_field_tests_attributes_field .add_nested_fields')
+  #   end
 
-    describe 'with nested_attributes_options given' do
-      before do
-        allow(FieldTest.nested_attributes_options).to receive(:[]).with(any_args).
-          and_return(allow_destroy: true, update_only: false)
-      end
+  #   describe 'with nested_attributes_options given' do
+  #     before do
+  #       allow(FieldTest.nested_attributes_options).to receive(:[]).with(any_args).
+  #         and_return(allow_destroy: true, update_only: false)
+  #     end
 
-      it 'does not show add button when :update_only is true' do
-        allow(FieldTest.nested_attributes_options).to receive(:[]).with(:nested_field_tests).
-          and_return(allow_destroy: true, update_only: true)
-        visit new_path(model_name: 'field_test')
-        is_expected.to have_selector('.toggler')
-        is_expected.not_to have_selector('#field_test_nested_field_tests_attributes_field .add_nested_fields')
-      end
+  #     it 'does not show add button when :update_only is true' do
+  #       allow(FieldTest.nested_attributes_options).to receive(:[]).with(:nested_field_tests).
+  #         and_return(allow_destroy: true, update_only: true)
+  #       visit new_path(model_name: 'field_test')
+  #       is_expected.to have_selector('.toggler')
+  #       is_expected.not_to have_selector('#field_test_nested_field_tests_attributes_field .add_nested_fields')
+  #     end
 
-      it 'does not show destroy button except for newly created when :allow_destroy is false' do
-        @record = FieldTest.create
-        @record.nested_field_tests << NestedFieldTest.create!(title: 'nested title 1')
-        allow(FieldTest.nested_attributes_options).to receive(:[]).with(:nested_field_tests).
-          and_return(allow_destroy: false, update_only: false)
-        visit edit_path(model_name: 'field_test', id: @record.id)
-        expect(find('#field_test_nested_field_tests_attributes_0_title').value).to eq('nested title 1')
-        is_expected.not_to have_selector('form .remove_nested_fields')
-        expect(find('div#nested_field_tests_fields_blueprint', visible: false)[:'data-blueprint']).to match(
-          /<a[^>]* class="remove_nested_fields"[^>]*>/)
-      end
-    end
+  #     it 'does not show destroy button except for newly created when :allow_destroy is false' do
+  #       @record = FieldTest.create
+  #       @record.nested_field_tests << NestedFieldTest.create!(title: 'nested title 1')
+  #       allow(FieldTest.nested_attributes_options).to receive(:[]).with(:nested_field_tests).
+  #         and_return(allow_destroy: false, update_only: false)
+  #       visit edit_path(model_name: 'field_test', id: @record.id)
+  #       expect(find('#field_test_nested_field_tests_attributes_0_title').value).to eq('nested title 1')
+  #       is_expected.not_to have_selector('form .remove_nested_fields')
+  #       expect(find('div#nested_field_tests_fields_blueprint', visible: false)[:'data-blueprint']).to match(
+  #         /<a[^>]* class="remove_nested_fields"[^>]*>/)
+  #     end
+  #   end
 
-    describe "when a field which have the same name of nested_in field's" do
-      it "does not hide fields which are not associated with nesting parent field's model" do
-        visit new_path(model_name: 'field_test')
-        is_expected.not_to have_selector('select#field_test_nested_field_tests_attributes_new_nested_field_tests_field_test_id')
-        expect(find('div#nested_field_tests_fields_blueprint', visible: false)[:'data-blueprint']).to match(
-          /<select[^>]* id="field_test_nested_field_tests_attributes_new_nested_field_tests_another_field_test_id"[^>]*>/)
-      end
+  #   describe "when a field which have the same name of nested_in field's" do
+  #     it "does not hide fields which are not associated with nesting parent field's model" do
+  #       visit new_path(model_name: 'field_test')
+  #       is_expected.not_to have_selector('select#field_test_nested_field_tests_attributes_new_nested_field_tests_field_test_id')
+  #       expect(find('div#nested_field_tests_fields_blueprint', visible: false)[:'data-blueprint']).to match(
+  #         /<select[^>]* id="field_test_nested_field_tests_attributes_new_nested_field_tests_another_field_test_id"[^>]*>/)
+  #     end
 
-      it 'hides fields that are deeply nested with inverse_of' do
-        visit new_path(model_name: 'field_test')
-        expect(page.body).to_not include('field_test_nested_field_tests_attributes_new_nested_field_tests_deeply_nested_field_tests_attributes_new_deeply_nested_field_tests_nested_field_test_id_field')
-        expect(page.body).to include('field_test_nested_field_tests_attributes_new_nested_field_tests_deeply_nested_field_tests_attributes_new_deeply_nested_field_tests_title')
-      end
-    end
-  end
+  #     it 'hides fields that are deeply nested with inverse_of' do
+  #       visit new_path(model_name: 'field_test')
+  #       expect(page.body).to_not include('field_test_nested_field_tests_attributes_new_nested_field_tests_deeply_nested_field_tests_attributes_new_deeply_nested_field_tests_nested_field_test_id_field')
+  #       expect(page.body).to include('field_test_nested_field_tests_attributes_new_nested_field_tests_deeply_nested_field_tests_attributes_new_deeply_nested_field_tests_title')
+  #     end
+  #   end
+  # end
 
   describe 'embedded model', mongoid: true do
     it 'works' do

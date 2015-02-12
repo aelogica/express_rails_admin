@@ -268,15 +268,15 @@ describe RailsAdmin::ApplicationHelper, type: :helper do
         expect(helper.main_navigation).to match(/.*(Navigation).*(Hardballs)/m)
       end
 
-      it 'nests in navigation label' do
-        RailsAdmin.config do |config|
-          config.included_models = [Comment]
-          config.model Comment do
-            navigation_label 'commentable'
-          end
-        end
-        expect(helper.main_navigation).to match(/.*(commentable).*(Comments)/m)
-      end
+      # it 'nests in navigation label' do
+      #   RailsAdmin.config do |config|
+      #     config.included_models = [Comment]
+      #     config.model Comment do
+      #       navigation_label 'commentable'
+      #     end
+      #   end
+      #   expect(helper.main_navigation).to match(/.*(commentable).*(Comments)/m)
+      # end
 
       it 'nests in parent model' do
         RailsAdmin.config do |config|
