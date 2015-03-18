@@ -1,6 +1,6 @@
 # ExpressRailsAdmin
 
-ExpressRailsAdmin is a Rails engine that provides an easy-to-use interface for managing your data.  It is a fork of the execellent [RailsAdmin](https://github.com/sferik/rails_admin) which we have changed to use Foundation instead of Bootstrap due to our requirements.
+ExpressRailsAdmin is a Rails engine that provides an easy-to-use interface for managing your data.  It is a fork of the excellent [RailsAdmin](https://github.com/sferik/rails_admin) which we have changed to use Foundation instead of Bootstrap due to our requirements.
 
 ## Features
 * CRUD any data with ease
