@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+source "https://express:2jqi9y2EmBa734UO3QVT@gems.aelogicaexpress.com/"
 
 gem 'rails', '4.2.0'
 

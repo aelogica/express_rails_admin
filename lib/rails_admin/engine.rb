@@ -7,7 +7,6 @@ require 'rails'
 require 'rails_admin'
 require 'remotipart'
 require 'safe_yaml'
-require 'foundation-rails'
 require 'express_admin'
 
 SafeYAML::OPTIONS[:suppress_warnings] = true
