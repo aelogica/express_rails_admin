@@ -17,6 +17,8 @@ module RailsAdmin
     isolate_namespace RailsAdmin
     include ::ExpressAdmin::Menu::Loader
 
+    RailsAdmin::Engine.config.rails_admin_mount_point = '/admin/manage'
+
     initializer 'RailsAdmin precompile hook', group: :all do |app|
       app.config.assets.precompile += %w(
         rails_admin/rails_admin.js
