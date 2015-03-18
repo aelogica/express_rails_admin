@@ -1,6 +1,7 @@
 # ExpressRailsAdmin
 
-ExpressRailsAdmin is a Rails engine that provides an easy-to-use interface for managing your data.  It is a fork of the excellent [RailsAdmin](https://github.com/sferik/rails_admin) which we have changed to use Foundation instead of Bootstrap due to our requirements.
+ExpressRailsAdmin is a Rails engine that provides an easy-to-use interface for managing your data.  It is a fork of the excellent [RailsAdmin](https://github.com/sferik/rails_admin) which we have changed to use Foundation instead of Bootstrap due to our requirements. It also requires [ExpressAdmin](https://github.com/aelogica/express_admin) for common AppExpress-specific interface components.
+
 
 ## Features
 * CRUD any data with ease
@@ -15,8 +16,6 @@ ExpressRailsAdmin is a Rails engine that provides an easy-to-use interface for m
   * ActiveRecord
   * Mongoid
 
-
-
 ## Installation
 
 1. Bundle the gem
@@ -25,7 +24,9 @@ ExpressRailsAdmin is a Rails engine that provides an easy-to-use interface for m
 4. Start a server `rails s` and administer your data at [/admin](http://localhost:3000/admin). (if you chose default namespace: /admin)
 
 ## Configuration
+
 ### Global
+
 In `config/initializers/rails_admin`:
 
 [Details](https://github.com/sferik/rails_admin/wiki/Base-configuration)
