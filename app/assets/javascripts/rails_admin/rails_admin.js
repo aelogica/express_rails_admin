@@ -16,3 +16,4 @@
 //=  require 'rails_admin/ra.widgets'
 //=  require 'rails_admin/ui'
 //=  require 'rails_admin/custom/ui'
+//=  require 'express_admin'

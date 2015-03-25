@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-source "https://express:2jqi9y2EmBa734UO3QVT@gems.aelogicaexpress.com/"
+source "https://#{ENV['GEM_SERVER_USERNAME']}:#{ENV['GEM_SERVER_PASSWORD']}@#{ENV['GEM_SERVER_HOST']}"
 
 gem 'rails', '4.2.0'
 
