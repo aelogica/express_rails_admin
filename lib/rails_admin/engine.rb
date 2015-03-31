@@ -17,6 +17,15 @@ module RailsAdmin
     isolate_namespace RailsAdmin
     include ::ExpressAdmin::Menu::Loader
 
+    initializer :assets do |config|
+      engine_assets_path = File.join(File.dirname(__FILE__), '..', '..', 'app', 'assets')
+      all_assets = Dir.glob File.join(engine_assets_path, 'stylesheets', '**', '*.css*')
+      all_assets += Dir.glob File.join(engine_assets_path, 'javascripts', '**', '*.js*')
+      all_assets.each {|path| path.gsub!("#{engine_assets_path}/stylesheets/", '')}
+      all_assets.each {|path| path.gsub!("#{engine_assets_path}/javascripts/", '')}
+      Rails.application.config.assets.precompile += all_assets
+    end
+
     RailsAdmin::Engine.config.rails_admin_mount_point = '/admin/manage'
 
     initializer 'RailsAdmin precompile hook', group: :all do |app|
