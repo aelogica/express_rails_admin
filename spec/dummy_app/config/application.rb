@@ -11,7 +11,7 @@ end
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
-Bundler.require(*Rails.groups, :app_express)
+Bundler.require(*Rails.groups, :appexpress)
 
 module DummyApp
   class Application < Rails::Application
