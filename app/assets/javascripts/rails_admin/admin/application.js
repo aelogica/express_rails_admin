@@ -1,1 +1,2 @@
-//= require express_admin
+//= require jquery
+//= require foundation/foundation

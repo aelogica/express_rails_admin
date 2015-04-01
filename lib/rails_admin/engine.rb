@@ -40,10 +40,5 @@ module RailsAdmin
     rake_tasks do
       Dir[File.join(File.dirname(__FILE__), '../tasks/*.rake')].each { |f| load f }
     end
-
-    def self.express_admin_menu
-      RecursiveOpenStruct.new({main: {title: 'Admin', path: 'rails_admin.dashboard_path'}})
-    end
-
   end
 end
