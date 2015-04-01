@@ -74,9 +74,9 @@
     %input{type: :hidden, name: 'return_to', value: (params[:return_to].presence || request.referer)}
     %button.button.small.radius{type: "submit", name: 'csv'}
       = t("admin.export.confirmation", name: 'csv')
-    %button.button.btn-info{type: "submit", name: 'json'}
+    %button.button.small.radius{type: "submit", name: 'json'}
       = t("admin.export.confirmation", name: 'json')
-    %button.button.btn-info{type: "submit", name: 'xml'}
+    %button.button.small.radius{type: "submit", name: 'xml'}
       = t("admin.export.confirmation", name: 'xml')
     %button.button.small.radius.gray{type: "submit", name: "_continue"}
       = t("admin.form.cancel")
