@@ -162,8 +162,8 @@
               - delete_action = action(:delete, @abstract_model, object)
               - edit_action = action(:edit, @abstract_model, object)
               %ul.inline-list
-                = link_to "Delete", url_for(action: delete_action.action_name, model_name: @abstract_model.to_param, id: object.id)
                 = link_to "Edit", url_for(action: edit_action.action_name, model_name: @abstract_model.to_param, id: object.id)
+                = link_to "Delete", url_for(action: delete_action.action_name, model_name: @abstract_model.to_param, id: object.id)
 
     - if @objects.respond_to?(:total_count)
       - total_count = @objects.total_count.to_i
