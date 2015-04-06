@@ -39,10 +39,13 @@
           return { label: $(this).text(), value: this.value };
         }).toArray();
       }
-      var filtering_select = $('<div class="input-append filtering-select" style="float:left"></div>')
+      var filtering_select = $('<div class="input-append row collapse filtering-select" style="float:left"></div>');
+      var input_container = $('<div class="small-10 columns"></div>');
+      var button_container = $('<div class="small-2 columns"></div>');
+
       var input = this.input = $('<input type="text">')
         .val(value)
-        .addClass("form-control ra-filtering-select-input")
+        .addClass("ra-filtering-select-input")
         .attr('style', select.attr('style'))
         .show()
         .autocomplete({
@@ -99,7 +102,7 @@
       };
 
       // replace with dropdown button once ready in twitter-bootstrap
-      var button = this.button = $('<label class="add-on ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" title="Show All Items" role="button"><span class="ui-button-icon-primary ui-icon ui-icon-triangle-1-s"></span><span class="ui-button-text">&nbsp;</span></label>')
+      var button = this.button = $('<a class="postfix button radius" title="Show All Items" role="button"><span class="icon ion-chevron-down"></span><span class="ui-button-text">&nbsp;</span></a>')
         .click(function() {
           // close if already visible
           if (input.autocomplete("widget").is(":visible")) {
@@ -112,9 +115,9 @@
           input.focus();
         });
 
-      filtering_select.append(input).append(button).insertAfter(select);
-
-
+      input_container.append(input);
+      button_container.append(button);
+      filtering_select.append(input_container).append(button_container).insertAfter(select);
     },
 
     _getResultSet: function(request, data, xhr) {

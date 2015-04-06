@@ -1,6 +1,22 @@
 - params = request.params.except(:action, :controller, :utf8, :page, :per_page, :format, :authenticity_token)
 - visible_fields = @model_config.export.with(view: self, object: @abstract_model.model.new, controller: self.controller).visible_fields
 
+.button-bar
+  - export_action = action(:export, @abstract_model, @object)
+  - history_action = action(:history_index, @abstract_model, @object)
+  - new_action = action(:new, @abstract_model, @object)
+  %ul.button-group.left
+    %li
+      = link_to url_for(action: new_action.action_name, model_name: @abstract_model.to_param), class: 'button small success radius' do
+        %i.icon.ion-plus
+        Add New
+  %ul.button-group.left
+    %li
+      = link_to "Export", url_for(action: export_action.action_name, model_name: @abstract_model.to_param), class: 'button small radius'
+  %ul.button-group.left
+    %li
+      = link_to "History", url_for(action: history_action.action_name, model_name: @abstract_model.to_param), class: 'button small radius'
+
 = form_tag export_path(params.merge(all: true)), method: 'post', class: 'form-horizontal denser' do
 
   %input{name: "send_data", type: "hidden", value: "true"}/
@@ -34,20 +50,9 @@
 
     - visible_fields.select{ |f| f.association? && !f.association.polymorphic? }.each do |field|
       - fields = field.associated_model_config.export.with(controller: self.controller, view: self, object: (associated_model = field.associated_model_config.abstract_model.model).new).visible_fields.select{ |f| !f.association? }
-<<<<<<< HEAD
-      .control-group
-        %label.col-sm-2.control-label{rel: 'tooltip', :'data-original-title' => t('admin.export.click_to_reverse_selection'), onclick: 'jQuery(this).siblings(".controls").find("input").click()'}= t('admin.export.fields_from_associated', name: field.label.downcase)
-        .col-sm-10.controls
-=======
       .form-group
-<<<<<<< HEAD
-        %label.control-label{rel: 'tooltip', :'data-original-title' => t('admin.export.click_to_reverse_selection'), onclick: 'jQuery(this).siblings(".controls").find("input").click()'}= t('admin.export.fields_from_associated', name: field.label.downcase)
-        .controls
->>>>>>> 20dd4b7... [#75002932] Turn control-groups to form-group for new form html markups
-=======
         %label.control-label.small-12.large-3.columns.control-label{rel: 'tooltip', :'data-original-title' => t('admin.export.click_to_reverse_selection'), onclick: 'jQuery(this).siblings(".controls").find("input").click()'}= t('admin.export.fields_from_associated', name: field.label.downcase)
         .controls.small-12.large-9.columns
->>>>>>> 9686e2d... [#75002932] Fix rendering of forms for horizontal styles
           - fields.each do |associated_model_field|
             - list = associated_model_field.virtual? ? 'methods' : 'only'
             %label.checkbox{for: "schema_include_#{field.name}_#{list}_#{associated_model_field.name}"}
@@ -85,9 +90,9 @@
     %input{type: :hidden, name: 'return_to', value: (params[:return_to].presence || request.referer)}
     %button.button.small.radius{type: "submit", name: 'csv'}
       = t("admin.export.confirmation", name: 'csv')
-    %button.button.btn-info{type: "submit", name: 'json'}
+    %button.button.small.radius{type: "submit", name: 'json'}
       = t("admin.export.confirmation", name: 'json')
-    %button.button.btn-info{type: "submit", name: 'xml'}
+    %button.button.small.radius{type: "submit", name: 'xml'}
       = t("admin.export.confirmation", name: 'xml')
     %button.button.small.radius.gray{type: "submit", name: "_continue"}
       = t("admin.form.cancel")

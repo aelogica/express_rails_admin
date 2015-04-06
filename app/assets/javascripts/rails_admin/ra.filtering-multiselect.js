@@ -42,11 +42,11 @@
     _build: function() {
       var i;
 
-      this.wrapper = $('<div class="ra-multiselect">');
+      this.wrapper = $('<div class="ra-multiselect row">');
 
       this.wrapper.insertAfter(this.element);
 
-      this.header = $('<div class="ra-multiselect-header ui-helper-clearfix">');
+      this.header = $('<div class="ra-multiselect-header small-12 columns ui-helper-clearfix">');
 
       this.filter = $('<input type="search" placeholder="' + this.options.regional.search + '" class="form-control ra-multiselect-search"/>');
 
@@ -55,9 +55,9 @@
       this.wrapper.append(this.header);
 
       this.columns = {
-        left: $('<div class="ra-multiselect-column ra-multiselect-left">'),
-        center: $('<div class="ra-multiselect-column ra-multiselect-center">'),
-        right: $('<div class="ra-multiselect-column ra-multiselect-right">')
+        left: $('<div class="ra-multiselect-column columns small-4 ra-multiselect-left">'),
+        center: $('<div class="ra-multiselect-column columns small-1 ra-multiselect-center">'),
+        right: $('<div class="ra-multiselect-column columns small-4 end ra-multiselect-right">')
       };
 
       for (i in this.columns) {
@@ -69,18 +69,17 @@
       this.collection = $('<select multiple="multiple"></select>');
 
       this.collection.addClass("form-control ra-multiselect-collection");
-      
-      this.addAll = $('<a href="#" class="ra-multiselect-item-add-all"><span class="ui-icon ui-icon-circle-triangle-e"></span>' + this.options.regional.chooseAll + '</a>');
-      
+
+      this.addAll = $('<a href="#" class="ra-multiselect-item-add-all"><span class="icon ion-chevron-right" style="margin-right: 5px;"></span>' + this.options.regional.chooseAll + '</a>');
+
       this.columns.left.html(this.collection)
                           .append(this.addAll);
-      
-      this.collection.wrap('<div class="wrapper"/>');
-      
-      
-      this.add = $('<a href="#" class="ui-icon ui-icon-circle-triangle-e ra-multiselect-item-add">' + this.options.regional.add + '</a>');
 
-      this.remove = $('<a href="#" class="ui-icon ui-icon-circle-triangle-w ra-multiselect-item-remove">' + this.options.regional.remove + '</a>');
+      this.collection.wrap('<div class="wrapper"/>');
+
+
+      this.add = $('<a href="#" class="icon ion-chevron-right ra-multiselect-item-add"></a>');
+      this.remove = $('<a href="#" class="icon ion-chevron-left ra-multiselect-item-remove"></a>');
 
       this.columns.center.append(this.add).append(this.remove)
       if (this.options.sortable) {
@@ -90,14 +89,12 @@
       }
 
       this.selection = $('<select class="form-control ra-multiselect-selection" multiple="multiple"></select>');
-      
-      
 
-      this.removeAll = $('<a href="#" class="ra-multiselect-item-remove-all"><span class="ui-icon ui-icon-circle-triangle-w"></span>' + this.options.regional.clearAll + '</a>');
+      this.removeAll = $('<a href="#" class="ra-multiselect-item-remove-all"><span class="icon ion-chevron-left" style="margin-right: 5px;"></span>' + this.options.regional.clearAll + '</a>');
 
       this.columns.right.append(this.selection)
                            .append(this.removeAll);
-      
+
       this.selection.wrap('<div class="wrapper"/>');
 
       this.element.css({display: "none"});
@@ -116,7 +113,7 @@
       /* Add to selection */
       this.add.click(function(e){
         widget._select($(':selected', widget.collection));
-        
+
         e.preventDefault();
         widget.selection.trigger('change');
       });

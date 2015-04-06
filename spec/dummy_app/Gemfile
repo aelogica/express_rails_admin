@@ -62,8 +62,6 @@ group :development, :test do
   gem 'pry'
 end
 
-group :app_express do
-  gem 'express_admin', github: "aelogica/express_admin",
-    branch: 'master'
+group :appexpress do
   gem 'rails_admin', path: "../.."
 end
