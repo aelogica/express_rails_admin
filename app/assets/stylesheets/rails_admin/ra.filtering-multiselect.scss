@@ -33,9 +33,10 @@
 
   .ra-multiselect-center {
     width: 30px;
-    padding-top: 15px;
+    padding-top: 30px !important;
     text-align: center;
-    .ui-icon {
+    .icon {
+      display: block;
       margin: 5px auto;
     }
   }
@@ -86,3 +87,10 @@
   }
 }
 
+.ra-multiselect {
+  margin-bottom: 15px !important;
+
+  + .button {
+    margin-left: 0 !important;
+  }
+}
