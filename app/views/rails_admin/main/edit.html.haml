@@ -1,2 +1,18 @@
+.button-bar
+  - export_action = action(:export, @abstract_model, @object)
+  - history_action = action(:history_index, @abstract_model, @object)
+  - new_action = action(:new, @abstract_model, @object)
+  %ul.button-group.left
+    %li
+      = link_to url_for(action: new_action.action_name, model_name: @abstract_model.to_param), class: 'button small success radius' do
+        %i.icon.ion-plus
+        Add New
+  %ul.button-group.left
+    %li
+      = link_to "Export", url_for(action: export_action.action_name, model_name: @abstract_model.to_param), class: 'button small radius'
+  %ul.button-group.left
+    %li
+      = link_to "History", url_for(action: history_action.action_name, model_name: @abstract_model.to_param), class: 'button small radius'
+
 = rails_admin_form_for @object, url: edit_path(@abstract_model, @object.id), as: @abstract_model.param_key, html: { method: "put", multipart: true, class: "form-horizontal denser", data: { title: @page_name } } do |form|
   = form.generate action: :update

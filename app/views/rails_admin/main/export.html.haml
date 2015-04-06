@@ -1,6 +1,22 @@
 - params = request.params.except(:action, :controller, :utf8, :page, :per_page, :format, :authenticity_token)
 - visible_fields = @model_config.export.with(view: self, object: @abstract_model.model.new, controller: self.controller).visible_fields
 
+.button-bar
+  - export_action = action(:export, @abstract_model, @object)
+  - history_action = action(:history_index, @abstract_model, @object)
+  - new_action = action(:new, @abstract_model, @object)
+  %ul.button-group.left
+    %li
+      = link_to url_for(action: new_action.action_name, model_name: @abstract_model.to_param), class: 'button small success radius' do
+        %i.icon.ion-plus
+        Add New
+  %ul.button-group.left
+    %li
+      = link_to "Export", url_for(action: export_action.action_name, model_name: @abstract_model.to_param), class: 'button small radius'
+  %ul.button-group.left
+    %li
+      = link_to "History", url_for(action: history_action.action_name, model_name: @abstract_model.to_param), class: 'button small radius'
+
 = form_tag export_path(params.merge(all: true)), method: 'post', class: 'form-horizontal denser' do
 
   %input{name: "send_data", type: "hidden", value: "true"}/
