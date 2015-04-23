@@ -68,7 +68,7 @@ describe 'RailsAdmin::Adapters::Mongoid', mongoid: true do
       end
 
       it 'supports pagination' do
-        expect(@abstract_model.all(sort: 'players._id', page: 2, per: 1).to_a).to eq(@players[1..1])
+        expect(@abstract_model.all(sort: 'players._id', page: 2, per: 1).to_a).to eq(@players.sort_by(&:_id)[1..1])
         # To prevent RSpec matcher to call Mongoid::Criteria#== method,
         # (we want to test equality of query result, not of Mongoid criteria)
         # to_a is added to invoke Mongoid query
@@ -88,7 +88,7 @@ describe 'RailsAdmin::Adapters::Mongoid', mongoid: true do
       end
 
       it 'ignores non-existent field name on filtering' do
-        expect(lambda { @abstract_model.all(filters: {'dummy' => {'0000' => {o: 'is', v: @players[1].name}}}) }).not_to raise_error
+        expect { @abstract_model.all(filters: {'dummy' => {'0000' => {o: 'is', v: @players[1].name}}}) }.not_to raise_error
       end
     end
   end

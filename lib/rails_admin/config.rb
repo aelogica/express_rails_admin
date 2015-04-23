@@ -53,6 +53,9 @@ module RailsAdmin
       # Set the max width of columns in list view before a new set is created
       attr_accessor :total_columns_width
 
+      # set parent controller
+      attr_accessor :parent_controller
+
       # Stores model configuration objects in a hash identified by model's class
       # name.
       #
@@ -270,6 +273,7 @@ module RailsAdmin
         @registry = {}
         @navigation_static_links = {}
         @navigation_static_label = nil
+        @parent_controller = '::ApplicationController'
         RailsAdmin::Config::Actions.reset
       end
 
@@ -302,7 +306,7 @@ module RailsAdmin
       end
 
       def viable_models
-        included_models.collect(&:to_s).presence || (
+        included_models.collect(&:to_s).presence || begin
           @@system_models ||= # memoization for tests
             ([Rails.application] + Rails::Engine.subclasses.collect(&:instance)).flat_map do |app|
               (app.paths['app/models'].to_a + app.config.autoload_paths).collect do |load_path|
@@ -314,7 +318,7 @@ module RailsAdmin
                 end
               end
             end.flatten.reject { |m| m.starts_with?('Concerns::') } # rubocop:disable MultilineBlockChain
-          )
+        end
       end
 
       def visible_models_with_bindings(bindings)

@@ -44,6 +44,11 @@ $(document).on 'rails_admin.dom_ready', ->
   $('.form-horizontal legend').has('i.ion-chevron-right').each ->
     $(this).siblings('.form-group').hide()
 
+  # Workaround for jquery-ujs formnovalidate issue:
+  # https://github.com/rails/jquery-ujs/issues/316
+  $('[formnovalidate]').on 'click', ->
+    $(this).closest('form').attr('novalidate', true)
+
 $(document).on 'click', '#fields_to_export label input#check_all', () ->
   elems = $('#fields_to_export label input')
   if $('#fields_to_export label input#check_all').is ':checked'
